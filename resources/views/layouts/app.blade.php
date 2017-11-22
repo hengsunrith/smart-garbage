@@ -12,61 +12,69 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style type="text/css">
+      ul, li {
+        list-style-type: none;
+        text-decoration: none;
+        text-transform: none;
+      }
+      .logout-tropdown {
+        display: none;
+
+      }
+      .logout-tropdown-hover:hover > .logout-tropdown {
+        display: block;
+        position: absolute;
+        top: 20px;
+        left: 0;
+      }
+      .logout-tropdown-hover:hover > .logout-tropdown a{
+        color: #fff;
+      }
+      .user-auth, a {
+        margin-left: 10px;
+        color: #fff;
+      }
+      .max-width {
+        max-width: 600px;
+      }
+    </style>
 </head>
 <body>
     <div id="app">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:24px 0;">
+          <a class="navbar-brand" href="{{ url('/home') }}">Smart-Garbage</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navb">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="{{ url('/home') }}">Home</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
+              
             </ul>
             <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              <input class="form-control mr-sm-2" type="text" placeholder="Search">
+              <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
             </form>
-          </div>
 
-          <ul class="nav navbar-nav navbar-right">
+            <ul class="navbar-nav navbar-right user-auth">
             <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ route('login') }}">Login</a></li> / 
-                    <li><a href="{{ route('register') }}">Register</a></li>
+                    <li><a href="{{ route('login') }}">Login</a></li>  <li><a href="{{ route('register') }}">Register</a></li>
                 @else
-                    <li class="dropdown">
+                    <li class="dropdown  logout-tropdown-hover">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
-                        <ul class="dropdown-menu" role="menu">
+                        <ul class="logout-tropdown">
                             <li>
                                 <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                         Logout
                                 </a>
 
@@ -77,9 +85,9 @@
                         </ul>
                     </li>
                 @endif
-            </ul>            
+            </ul>    
+          </div>
         </nav>
-
         @yield('content')
     </div>
 
